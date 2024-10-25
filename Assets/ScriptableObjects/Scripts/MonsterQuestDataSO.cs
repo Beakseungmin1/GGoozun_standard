@@ -6,4 +6,5 @@ using UnityEngine;
 public class MonsterQuestDataSO : QuestDataSO
 {
     public float NeedKillMonster;
+    public string KillMonserName;
 }

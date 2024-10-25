@@ -6,4 +6,5 @@ using UnityEngine;
 public class EncounterQuestDataSO : QuestDataSO
 {
     public float QuestNeedLevel;
+    public string targetNPC;
 }

@@ -3,37 +3,48 @@ using System.Collections.Generic;
 
 public class ObjectPool : MonoBehaviour
 {
+    public class Pool
+    {
+        public string tag;
+        public GameObject prefab;
+        public int size;
+    }
+
     public GameObject prefab;
-    private List<GameObject> pool = new List<GameObject>();
-    public Dictionary<string, List<GameObject>> Pools;
+    private List<Pool> pools = new List<Pool>();
+    public Dictionary<string, Queue<GameObject>> Pooldict;
     public int poolSize = 300;
 
     void Start()
     {
+        Pooldict = new Dictionary<string, Queue<GameObject>>();
+
         // 미리 poolSize만큼 게임오브젝트를 생성한다.
-        foreach (var pol in Pools)
+        foreach (var pol in pools)
         {
-            for (int i = 0; i < poolSize; i++)
+            Queue<GameObject> queue = new Queue<GameObject>();
+            for (int i = 0; i < pol.size; i++)
             {
-                GameObject Arrow = Instantiate(prefab);
-                pool.Add(Arrow);
-                Arrow.SetActive(false);
+                GameObject objet = Instantiate(pol.prefab);
+                objet.SetActive(false);
+                queue.Enqueue(objet);
             }
-            Pools.Add(pol.ToString(), pool);
+            Pooldict.Add(pol.tag, queue);
         }
     }
 
-    public GameObject Get()
+    public GameObject Get(string tag)
     {
-        foreach(var pol in pool)
+        if (!Pooldict.ContainsKey(tag))
         {
-            if (!pol.activeSelf)
-            {
-                pol.SetActive(true);
-                return pol;
-            }
+            return null;
         }
-        return null;
+
+        GameObject obj = Pooldict[tag].Dequeue();
+        Pooldict[tag].Enqueue(obj);
+
+        obj.SetActive(true);
+        return obj;
         // 꺼져있는 게임오브젝트를 찾아 active한 상태로 변경하고 return 한다.
 
     }
@@ -41,6 +52,7 @@ public class ObjectPool : MonoBehaviour
     public void Release(GameObject obj)
     {
         obj.SetActive(false);
+
         // 게임오브젝트를 deactive한다.
     }
 }

@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8fe9ad1172b4faa43ae281966217be6b, type: 3}
-  m_Name: DefaultQuestDataSO
+  m_Name: DefaultQuestDataSO 1
   m_EditorClassIdentifier: 
-  QuestName: "\uC720\uB2C8\uD2F0 \uB9C8\uC2A4\uD130\uAC00 \uB418\uB294 \uAE38"
-  QuestRequiredLevel: 70
-  QuestNPC: 1
+  QuestName: "\uC2A4\uD30C\uB974\uD0C0\uC5D0 \uC785\uC131\uD588\uB2E4"
+  QuestRequiredLevel: 10
+  QuestNPC: 2
   QuestPrerequisites: 
